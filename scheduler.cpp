@@ -27,12 +27,16 @@ void scheduler_run(void)
 void scheduler_add_task_per(fptr_t func, uint16_t per)
 {
 	task_t* tptr = scheduler;
-	
-	while (tptr->func != NULL) {
+
+	int i;
+	for (i = 0; i < SCHEDULER_SIZE && tptr->func != NULL; i++) {
 		tptr++;
 	}
 
-	/// TODO: implement logic to prevent incrementing pointer out of array bounds
+	if (i >= SCHEDULER_SIZE) {
+		// scheduler full, return without adding task
+		return;
+	}
 
 	tptr->func = func;
 	tptr->per = per;

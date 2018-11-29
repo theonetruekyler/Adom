@@ -8,6 +8,7 @@
 
 // Define User Types below here or use a .h file
 //
+#include "leds.h"
 #include "scheduler.h"
 
 
@@ -33,11 +34,13 @@ void setup()
 {
 	delay(500);
 
-	Serial.begin(9600);
+	Serial.begin(38400);
 
-	scheduler_clear();
+	scheduler_init();
 	scheduler_add_task_freq(foo, 1);
 	scheduler_add_task_per(bar, 500);
+
+	leds_init();
 
 }
 

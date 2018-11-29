@@ -32,5 +32,11 @@ void scheduler_add_task_per(fptr_t func, uint16_t per);
 void scheduler_add_task_freq(fptr_t func, uint16_t freq);
 void scheduler_clear(void);
 
+// alias for scheduler_clear for syntactical tidiness 
+#ifndef scheduler_init
+#define scheduler_init() \
+	scheduler_clear();
+#endif
+
 #endif
 
