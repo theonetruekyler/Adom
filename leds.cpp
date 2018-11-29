@@ -10,8 +10,8 @@ uint8_t hue;
 void leds_init(void)
 {
 	FastLED.addLeds<NEOPIXEL, LEDS_DATA_PIN>(leds, LEDS_COUNT);
-	hue = 0;
 
+	hue = 0;
 	fill_rainbow(leds, LEDS_COUNT, hue);
 	FastLED.show();
 
@@ -21,6 +21,7 @@ void leds_init(void)
 void leds_update(void)
 {
 	hue++;
+	fill_rainbow(leds, LEDS_COUNT, hue);
 	FastLED.show();
 }
 
