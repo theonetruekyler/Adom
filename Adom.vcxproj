@@ -107,11 +107,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="analog.h" />
     <ClInclude Include="leds.h" />
+    <ClInclude Include="serial_printf.h" />
     <ClInclude Include="scheduler.h" />
     <ClInclude Include="__vm\.Adom.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="analog.cpp" />
     <ClCompile Include="leds.cpp" />
     <ClCompile Include="scheduler.cpp" />
   </ItemGroup>

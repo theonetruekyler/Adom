@@ -33,17 +33,17 @@ void scheduler_run(void)
 	}
 }
 
-bool scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags)
+task_t* scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags)
 {
 	task_t* tp = NULL;
 	int i = 0;
 
-	// if task for function exist, set period and flags, return
+	// if task for function exist, set period and flags
 	tp = scheduler_get_task(func);
 	if (tp != NULL) {
 		tp->per = per;
 		tp->flags = flags;
-		return false;
+		return tp;
 	}
 
 	// iterate over schedule until an empty task is found
@@ -52,16 +52,16 @@ bool scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags)
 
 	// schedule full, return
 	if (i >= SCHEDULER_SIZE) {
-		return false;
+		return NULL;
 	}
 
 	tp->func = func;
 	tp->per = per;
 	tp->flags = flags;
-	return true;
+	return tp;
 }
 
-bool scheduler_add_task_freq(fptr_t func, uint16_t freq, uint8_t flags)
+task_t* scheduler_add_task_freq(fptr_t func, uint16_t freq, uint8_t flags)
 {
 	// convert frequency to period, minimum period of 20ms
 	int16_t per = 1000 / min(freq, 50);

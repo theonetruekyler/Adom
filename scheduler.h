@@ -34,8 +34,8 @@ extern task_t scheduler[SCHEDULER_SIZE];
 
 // function declarations(s)
 void scheduler_run(void);
-bool scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags = 0);
-bool scheduler_add_task_freq(fptr_t func, uint16_t freq, uint8_t flags = 0);
+task_t* scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags = 0);
+task_t* scheduler_add_task_freq(fptr_t func, uint16_t freq, uint8_t flags = 0);
 bool scheduler_remove_task(fptr_t func);
 void scheduler_clear(void);
 void scheduler_justify(void);

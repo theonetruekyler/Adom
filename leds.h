@@ -11,11 +11,8 @@
 
 #define FASTLED_INTERNAL
 #include "FastLED.h"
-#include "scheduler.h"
 
 #define LEDS_COUNT 12
-#define LEDS_DATA_PIN 51	/// NOTE: this is a SPI_MOSI pin
-#define LEDS_FRAMERATE 50
 
 // variable declaration(s)
 extern CRGB leds[LEDS_COUNT];

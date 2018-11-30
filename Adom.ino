@@ -8,6 +8,8 @@
 
 // Define User Types below here or use a .h file
 //
+#include "analog.h"
+#include "serial_printf.h"
 #include "leds.h"
 #include "scheduler.h"
 
@@ -21,12 +23,15 @@
 
 void foo(void)
 {
-	Serial.println("hello adom");
+	static unsigned long uptime_sec = 0;
+	uptime_sec++;
+
+	serial_printf("uptime: %u", uptime_sec);
 }
 
 void bar(void)
 {
-	Serial.println("hello world");
+	Serial.println("hi, i'm adom!");
 }
 
 // The setup() function runs once each time the micro-controller starts
@@ -37,11 +42,10 @@ void setup()
 	Serial.begin(38400);
 
 	scheduler_init();
-	scheduler_add_task_freq(foo, 1);
-	scheduler_add_task_per(bar, 500);
+
+	analog_init();
 
 	leds_init();
-
 }
 
 // Add the main program code into the continuous loop() function
@@ -49,4 +53,8 @@ void loop()
 {
 	scheduler_run();
 
+
+
 }
+
+/// TODO: functions called by the scheduler should accept a pointer to their containing task!

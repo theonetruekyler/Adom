@@ -30,12 +30,21 @@
     <ClInclude Include="leds.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="serial_printf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="analog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="scheduler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="leds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="analog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
