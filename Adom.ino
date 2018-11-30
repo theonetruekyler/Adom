@@ -53,7 +53,9 @@ void loop()
 {
 	scheduler_run();
 
-
+	/// TODO: remove this hack
+	task_t* led_task_ptr = scheduler_get_task(leds_update);
+	led_task_ptr->per = 1000 / map(pots[0].raw, 0, 1023, 1, 50);
 
 }
 
