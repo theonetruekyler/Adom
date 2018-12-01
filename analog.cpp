@@ -21,7 +21,7 @@ void analog_init(void)
 {
 	analogReference(ANALOG_REF);
 
-	scheduler_add_task_freq(analog_update, 25);
+	scheduler_add_task_freq(analog_update, 30);
 }
 
 float analog_ref_enum_to_float(void)

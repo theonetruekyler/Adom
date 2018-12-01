@@ -1,0 +1,4 @@
+2) refactor led adjustment to use hue increment rather than task frequency
+	a) implement pause functionality at low voltages
+3) implement digital input (button) abstraction
+4) refactor fptr_t to accept task_t* as a parameter

@@ -22,12 +22,17 @@ void scheduler_run(void)
 	for (int i = 0; (i < SCHEDULER_SIZE) && (tp->func != NULL); i++, tp++) {
 		// if task is not null, and task period elapsed, call function
 		if (tnow - tp->ts >= tp->per) {
-			tp->func();
-			tp->ts = tnow;
-
 			// if flagged for disposal... dispose
-			if (tp->flags & TASK_FLAG_DISPOSE) {
+			if (tp->bit.dispose) {
 				memset((void*)tp, NULL, sizeof(task_t));
+			}
+			// if flagged as paused, do not call function, but do update timestamp
+			else if (tp->bit.pause) {
+				tp->ts = tnow;
+			}
+			else {
+				tp->func();
+				tp->ts = tnow;
 			}
 		}
 	}
@@ -75,7 +80,7 @@ bool scheduler_remove_task(fptr_t func)
 
 	for (int i = 0; i < SCHEDULER_SIZE; i++, tp++) {
 		if (tp->func == func) {
-			tp->flags |= TASK_FLAG_DISPOSE;
+			tp->bit.dispose = 1;
 			return true;
 		}
 	}

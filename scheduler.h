@@ -15,17 +15,21 @@
 // function pointer for tasks, which accept no arguments and return void
 typedef void(*fptr_t)(void);
 
-typedef enum __task_flag_t
+typedef struct __task_bit_t
 {
-	TASK_FLAG_DISPOSE = 0x01	// remove this task from the schedule after next call
-} task_flag_t;
+	uint8_t dispose	: 1;	// remove this task after the next time its function is called
+	uint8_t pause	: 1;	// do not call this task's function, but do not remove task from scheduler
+} task_bit_t;
 
 // the task structure
 typedef struct __task_t
 {
+	union {
+		task_bit_t bit;
+		uint8_t flags;
+	};
 	unsigned long ts;	// time since boot task was last run (ms)
 	uint16_t per;		// period of task execution (ms)
-	uint8_t flags;		// per task program flags
 	fptr_t func;		// pointer to task function
 } task_t;
 

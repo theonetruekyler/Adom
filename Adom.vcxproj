@@ -118,6 +118,9 @@
     <ClCompile Include="leds.cpp" />
     <ClCompile Include="scheduler.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO.txt" />
+  </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
