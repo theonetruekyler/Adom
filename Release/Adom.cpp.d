@@ -11,6 +11,9 @@ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\Adom.cpp
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\mega/pins_arduino.h \
+ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\display.h \
+ C:\Users\Kyler\Documents\Arduino\libraries\LedControl-master\src/LedControl.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\analog.h \
  C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\serial_printf.h \
  C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\leds.h \
@@ -20,7 +23,6 @@ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\Adom.cpp
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/fastled_config.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/led_sysdefs.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/platforms/avr/led_sysdefs_avr.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/fastled_delay.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/bitswap.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/controller.h \

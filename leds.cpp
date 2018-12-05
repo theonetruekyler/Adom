@@ -6,7 +6,7 @@
 #include "analog.h"
 #include "scheduler.h"
 
-#define LEDS_DATA_PIN 51	/// NOTE: this is a SPI_MOSI pin
+#define LEDS_DATA_PIN 37	/// NOTE: 51 is SPI_MOSI
 
 // global variables
 CRGB leds[LEDS_COUNT];
@@ -25,7 +25,7 @@ void leds_init(void)
 	fill_rainbow(leds, LEDS_COUNT, led_hue);
 	FastLED.show();
 
-	led_task_ptr = scheduler_add_task_freq(leds_update, 25);
+	led_task_ptr = scheduler_add_task_freq(leds_update, 30);
 }
 
 void leds_update(void)

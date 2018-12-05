@@ -8,6 +8,7 @@
 
 // Define User Types below here or use a .h file
 //
+#include "display.h"
 #include "analog.h"
 #include "serial_printf.h"
 #include "leds.h"
@@ -38,14 +39,13 @@ void bar(void)
 void setup()
 {
 	delay(500);
-
 	Serial.begin(38400);
 
 	scheduler_init();
 
 	analog_init();
-
 	leds_init();
+	display_init();
 }
 
 int iTmp;
