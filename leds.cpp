@@ -33,7 +33,18 @@ void leds_update(void)
 	// copy from analog backend
 	int raw_speed = pots[POT_CONTROL_RGB_SPEED].raw;
 
+	// logic (speed)
+	if (1023 == raw_speed) {
+		led_inc = 30;
+	}
+	else if (LEDS_ADC_THRESHOLD * 1023 > raw_speed) {
+		led_inc = 0;
+	}
+	else {
+		led_inc = map(raw_speed, LEDS_ADC_THRESHOLD * 1023, 1023, 1, 15);
+	}
 
+	// update display
 	led_hue += led_inc;
 	fill_rainbow(leds, LEDS_COUNT, led_hue);
 	FastLED.show();

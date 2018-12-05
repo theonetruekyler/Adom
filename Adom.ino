@@ -55,22 +55,6 @@ task_t* tpTmp;
 void loop()
 {
 	scheduler_run();
-
-	/// TODO: remove this hack
-	task_t* tpTmp = scheduler_get_task(leds_update);
-	iTmp = pots[0].raw;
-	if (iTmp < LEDS_ADC_THRESHOLD * 1023) {
-		tpTmp->bit.pause = 1;
-	}
-	else {
-		tpTmp->bit.pause = 0;
-		if (iTmp == 1023) {
-			led_inc = 30;
-		}
-		else {
-			led_inc = map(iTmp, LEDS_ADC_THRESHOLD * 1023, 1023, 1, 15);
-		}
-	}
 }
 
 /// TODO: functions called by the scheduler should accept a pointer to their containing task!
