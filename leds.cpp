@@ -3,6 +3,7 @@
 // 
 
 #include "leds.h"
+#include "analog.h"
 #include "scheduler.h"
 
 #define LEDS_DATA_PIN 51	/// NOTE: this is a SPI_MOSI pin
@@ -29,6 +30,10 @@ void leds_init(void)
 
 void leds_update(void)
 {
+	// copy from analog backend
+	int raw_speed = pots[POT_CONTROL_RGB_SPEED].raw;
+
+
 	led_hue += led_inc;
 	fill_rainbow(leds, LEDS_COUNT, led_hue);
 	FastLED.show();

@@ -38,7 +38,7 @@ void scheduler_run(void)
 	}
 }
 
-task_t* scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags)
+task_t* scheduler_add_task_per(task_fptr_t func, uint16_t per, uint8_t flags)
 {
 	task_t* tp = NULL;
 	int i = 0;
@@ -66,7 +66,7 @@ task_t* scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags)
 	return tp;
 }
 
-task_t* scheduler_add_task_freq(fptr_t func, uint16_t freq, uint8_t flags)
+task_t* scheduler_add_task_freq(task_fptr_t func, uint16_t freq, uint8_t flags)
 {
 	// convert frequency to period, minimum period of 20ms
 	int16_t per = 1000 / min(freq, 50);
@@ -74,7 +74,7 @@ task_t* scheduler_add_task_freq(fptr_t func, uint16_t freq, uint8_t flags)
 	return scheduler_add_task_per(func, per);
 }
 
-bool scheduler_remove_task(fptr_t func)
+bool scheduler_remove_task(task_fptr_t func)
 {
 	task_t *tp = scheduler;
 
@@ -113,7 +113,7 @@ void scheduler_justify(void)
 	}
 }
 
-task_t* scheduler_get_task(fptr_t func)
+task_t* scheduler_get_task(task_fptr_t func)
 {
 	task_t *tp = scheduler;
 

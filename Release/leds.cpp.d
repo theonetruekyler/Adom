@@ -50,4 +50,5 @@ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\leds.cpp
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/fastspi.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/fastspi_bitbang.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/chipsets.h \
+ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\analog.h \
  C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\scheduler.h

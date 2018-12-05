@@ -13,7 +13,7 @@
 #define SCHEDULER_SIZE 16
 
 // function pointer for tasks, which accept no arguments and return void
-typedef void(*fptr_t)(void);
+typedef void(*task_fptr_t)(void);
 
 typedef struct __task_bit_t
 {
@@ -30,7 +30,7 @@ typedef struct __task_t
 	};
 	unsigned long ts;	// time since boot task was last run (ms)
 	uint16_t per;		// period of task execution (ms)
-	fptr_t func;		// pointer to task function
+	task_fptr_t func;		// pointer to task function
 } task_t;
 
 // variable declaration(s)
@@ -38,13 +38,12 @@ extern task_t scheduler[SCHEDULER_SIZE];
 
 // function declarations(s)
 void scheduler_run(void);
-task_t* scheduler_add_task_per(fptr_t func, uint16_t per, uint8_t flags = 0);
-task_t* scheduler_add_task_freq(fptr_t func, uint16_t freq, uint8_t flags = 0);
-bool scheduler_remove_task(fptr_t func);
+task_t* scheduler_add_task_per(task_fptr_t func, uint16_t per, uint8_t flags = 0);
+task_t* scheduler_add_task_freq(task_fptr_t func, uint16_t freq, uint8_t flags = 0);
+bool scheduler_remove_task(task_fptr_t func);
 void scheduler_clear(void);
 void scheduler_justify(void);
-
-task_t* scheduler_get_task(fptr_t func);
+task_t* scheduler_get_task(task_fptr_t func);
 
 // alias for scheduler_clear for syntactical tidiness 
 #ifndef scheduler_init
