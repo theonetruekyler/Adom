@@ -36,8 +36,8 @@ typedef struct __task_t
 	ulong ts;
 	ulong per;
 	void_fptr_t func;
-	task_t *next;
-	task_t *prev;
+	struct __task_t *next;
+	struct __task_t *prev;
 } task_t;
 
 /************************************************************************/
@@ -50,6 +50,8 @@ task_t* scheduler_add_task_freq(void_fptr_t func, ulong freq, uint8_t options = 
 bool scheduler_remove_task(void_fptr_t func);
 bool scheduler_remove_task(task_t *tptr);
 task_t* scheduler_get_task(void_fptr_t func);
+ulong scheduler_get_task_count(void);
 
 #endif
+
 
