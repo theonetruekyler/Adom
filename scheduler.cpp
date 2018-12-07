@@ -6,33 +6,68 @@
 
 #include "scheduler.h"
 
-// variable definitions
-task_t scheduler[SCHEDULER_SIZE];
+/************************************************************************/
+/* VARIABLE DEFINITIONS (LOCAL)                                         */
+/************************************************************************/
 
-#ifndef __task_is_empty
-#define __task_is_empty(tp) (tp->func == NULL)
-#endif
+task_t* head = NULL;
+task_t* tail = NULL;
+size_t task_count = 0;
 
-// function definitions
+/************************************************************************/
+/* FUNCTION DEFINITIONS (LOCAL)                                         */
+/************************************************************************/
+
+void remove_task(task_t *tptr)
+{
+	/* null check */
+	if (NULL == tptr) {
+		return;
+	}
+
+	/* remove head */
+	if (head == tptr && NULL != tptr->next) {
+		head = tptr->next;
+		tptr->next->prev = NULL;
+	}
+	/* remove tail*/
+	else if (tail == tptr && NULL != tptr->prev) {
+		tail = tptr->prev;
+		tptr->prev->next = NULL;
+	}
+	/* remove normal node */
+	else {
+		tptr->next->prev = tptr->prev;
+		tptr->prev->next = tptr->next;
+	}
+
+	/* free memory, decrement task count */
+	free((void*)tptr);
+	task_count--;
+}
+
+/************************************************************************/
+/* FUNCTION DEFINITIONS (GLOBAL)                                        */
+/************************************************************************/
+
 void scheduler_run(void)
 {
-	unsigned long tnow = millis();
-	task_t *tp = scheduler;
+	/* no task to run */
+	if (task_count < 1 || NULL == head) {
+		return;
+	}
 
-	for (int i = 0; (i < SCHEDULER_SIZE) && (tp->func != NULL); i++, tp++) {
-		// if task is not null, and task period elapsed, call function
-		if (tnow - tp->ts >= tp->per) {
-			// if flagged for disposal... dispose
-			if (tp->bit.dispose) {
-				memset((void*)tp, NULL, sizeof(task_t));
-			}
-			// if flagged as paused, do not call function, but do update timestamp
-			else if (tp->bit.pause) {
-				tp->ts = tnow;
-			}
-			else {
-				tp->func();
-				tp->ts = tnow;
+	ulong now = millis();
+
+	for (task_t *tptr = head; NULL != tptr->next; tptr = tptr->next) {
+		if (tptr->bit.pause) {
+			continue;
+		}
+		if (now - tptr->ts >= tptr->per) {
+			tptr->func();
+			tptr->ts = now;
+			if (tptr->bit.dispose) {
+				remove_task(tptr);
 			}
 		}
 	}
@@ -74,13 +109,16 @@ task_t* scheduler_add_task_freq(task_fptr_t func, uint16_t freq, uint8_t flags)
 	return scheduler_add_task_per(func, per);
 }
 
-bool scheduler_remove_task(task_fptr_t func)
+bool scheduler_remove_task(void_fptr_t func)
 {
-	task_t *tp = scheduler;
+	/* no task to remove */
+	if (task_count < 1 || NULL == head) {
+		return false;
+	}
 
-	for (int i = 0; i < SCHEDULER_SIZE; i++, tp++) {
-		if (tp->func == func) {
-			tp->bit.dispose = 1;
+	for (task_t *tptr = head; NULL != tptr->next; tptr = tptr->next) {
+		if (func == tptr->func ) {
+			tptr->bit.dispose = 1;
 			return true;
 		}
 	}

@@ -9,47 +9,47 @@
 	#include "WProgram.h"
 #endif
 
-// maximum quantity of schedule-able tasks
-#define SCHEDULER_SIZE 16
+/************************************************************************/
+/* TYPE DEFINITIONS                                                     */
+/************************************************************************/
 
-// function pointer for tasks, which accept no arguments and return void
-typedef void(*task_fptr_t)(void);
+/* syntactical convenience */
+typedef unsigned long ulong;
 
+/* pointer to scheduled function */
+typedef void(*void_fptr_t)(void);
+
+/* flags that define special beahvior */
 typedef struct __task_bit_t
 {
-	uint8_t dispose	: 1;	// remove this task after the next time its function is called
-	uint8_t pause	: 1;	// do not call this task's function, but do not remove task from scheduler
+	uint8_t dispose	: 1;
+	uint8_t pause	: 1;
 } task_bit_t;
 
-// the task structure
+/* structure of task node in list */
 typedef struct __task_t
 {
 	union {
 		task_bit_t bit;
-		uint8_t flags;
+		uint8_t options;
 	};
-	unsigned long ts;	// time since boot task was last run (ms)
-	uint16_t per;		// period of task execution (ms)
-	task_fptr_t func;		// pointer to task function
+	ulong ts;
+	ulong per;
+	void_fptr_t func;
+	task_t *next;
+	task_t *prev;
 } task_t;
 
-// variable declaration(s)
-extern task_t scheduler[SCHEDULER_SIZE];
+/************************************************************************/
+/* FUNCTION DECLARATIONS                                                */
+/************************************************************************/
 
-// function declarations(s)
 void scheduler_run(void);
-task_t* scheduler_add_task_per(task_fptr_t func, uint16_t per, uint8_t flags = 0);
-task_t* scheduler_add_task_freq(task_fptr_t func, uint16_t freq, uint8_t flags = 0);
-bool scheduler_remove_task(task_fptr_t func);
-void scheduler_clear(void);
-void scheduler_justify(void);
-task_t* scheduler_get_task(task_fptr_t func);
-
-// alias for scheduler_clear for syntactical tidiness 
-#ifndef scheduler_init
-#define scheduler_init() \
-	scheduler_clear();
-#endif
+task_t* scheduler_add_task_per(void_fptr_t func, ulong per, uint8_t options = 0);
+task_t* scheduler_add_task_freq(void_fptr_t func, ulong freq, uint8_t options = 0);
+bool scheduler_remove_task(void_fptr_t func);
+bool scheduler_remove_task(task_t *tptr);
+task_t* scheduler_get_task(void_fptr_t func);
 
 #endif
 
