@@ -15,7 +15,7 @@
 
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(arr) \
-	()
+	(sizeof(arr) / sizeof(arr[0]))
 #endif
 
 /************************************************************************/
@@ -64,7 +64,7 @@ void analog_update(void)
 	analog_t* ap;
 
 	/* read potentiometers */
-	for (int i = 0; i < ANALOG_POT_COUNT; i++) {
+	for (int i = 0; i < ARRAY_SIZE(pots); i++) {
 		ap = pots + i;
 		ap->raw = analogRead(ap->pin);
 		ap->mv = map(ap->raw, 0, 1023, 0, (long)(1000 * analog_ref_enum_to_float()));

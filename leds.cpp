@@ -50,7 +50,7 @@ void leds_init(void)
 void leds_update(void)
 {
 	/* copy from analog 'backend' */
-	int raw_speed = pots[POT_CONTROL_RGB_SPEED].raw;
+	int raw_speed = analog_get_raw(POT_CONTROL_RGB_SPEED);
 
 	/* set speed */
 	if (1023 == raw_speed) {
