@@ -3,6 +3,7 @@
 // 
 
 #include "display.h"
+#include "scheduler.h"
 
 #define DISPLAY_DATA_IN 51
 #define DISPLAY_CLK 52
@@ -19,13 +20,49 @@ void display_init(void)
 	// set brightness
 	led_control.setIntensity(0, 8);
 
+
+	led_control.setScanLimit(0, 8);
+
 	// clear display
 	led_control.clearDisplay(0);
 
-	/// TODO: testing, remove
+	/// TODO: remove
 	for (int i = 0; i < 8; i++) {
-		led_control.setDigit(0, i, (byte)(7-i), false);
+		led_control.setDigit(0, i, 0, 0);
 	}
 
-	/// TODO: schedule update task
+	scheduler_add_task_freq(display_update, 1);
+
 }
+
+void display_update(void)
+{
+	/// TODO: remove
+	static int display_count_debug = 990;
+	display_count_debug++;
+
+	display_write_int(display_count_debug, 4);
+	display_write_int(display_count_debug, 0);
+}
+
+void display_write_int(int value, int x)
+{
+	if (9999 < value || -999 > value) {
+		// integer too large or too small
+		return;
+	}
+
+	// thousandths, hundredths, tenths, ones
+	byte digits[4];
+	digits[0] = value % 10;
+	digits[1] = (value / 10) % 10;
+	digits[2] = (value / 100) % 10;
+	digits[3] = (value / 1000);
+
+	int i, j;
+	for (i = 0, j = x; i < 4 && j < 8; i++, j++) {
+		led_control.setDigit(0, j, (byte)digits[i], false);
+	}
+}
+
+

@@ -14,26 +14,11 @@
 #include "leds.h"
 #include "scheduler.h"
 
-
 // Define Function Prototypes that use User Types below here or use a .h file
 //
 
-
 // Define Functions below here or use other .ino or cpp files
 //
-
-void foo(void)
-{
-	static unsigned long uptime_sec = 0;
-	uptime_sec++;
-
-	serial_printf("uptime: %u", uptime_sec);
-}
-
-void bar(void)
-{
-	Serial.println("hi, i'm adom!");
-}
 
 // The setup() function runs once each time the micro-controller starts
 void setup()
@@ -47,9 +32,6 @@ void setup()
 	leds_init();
 	display_init();
 }
-
-int iTmp;
-task_t* tpTmp;
 
 // Add the main program code into the continuous loop() function
 void loop()

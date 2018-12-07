@@ -13,6 +13,9 @@
 
 // function declarations
 void display_init(void);
+void display_update(void);
+void display_write_int(int i, int place);
 
 #endif
+
 
