@@ -47,6 +47,7 @@ typedef struct __task_t
 void scheduler_run(void);
 task_t* scheduler_add_task_per(void_fptr_t func, ulong per, uint8_t options = 0);
 task_t* scheduler_add_task_freq(void_fptr_t func, ulong freq, uint8_t options = 0);
+task_t* scheduler_one_shot(void_fptr_t func, ulong per);
 bool scheduler_remove_task(void_fptr_t func);
 bool scheduler_remove_task(task_t *tptr);
 task_t* scheduler_get_task(void_fptr_t func);

@@ -123,10 +123,21 @@ task_t* scheduler_add_task_per(void_fptr_t func, ulong per, uint8_t options)
 
 task_t* scheduler_add_task_freq(void_fptr_t func, ulong freq, uint8_t options)
 {
-	// convert frequency to period, minimum period of 20ms
+	/* convert frequency to period, minimum period of 20ms */
 	ulong per = 1000 / min(freq, 50);
 
 	return scheduler_add_task_per(func, per, options);
+}
+
+task_t* scheduler_one_shot(void_fptr_t func, ulong per)
+{
+	task_t *tptr = scheduler_add_task_per(func, per);
+
+	/* "func" will be called, and then removed after "per" milliseconds */
+	tptr->ts = millis();
+	tptr->bit.dispose = 1;
+
+	return tptr;
 }
 
 bool scheduler_remove_task(void_fptr_t func)
