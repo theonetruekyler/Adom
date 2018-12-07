@@ -9,20 +9,21 @@
 	#include "WProgram.h"
 #endif
 
-#define FASTLED_INTERNAL
-#include "FastLED.h"
+#include "scheduler.h"
 
-#define LEDS_COUNT 12
-#define LEDS_ADC_THRESHOLD 0.15f
+/************************************************************************/
+/* VARIABLE DECLARATIONS                                                */
+/************************************************************************/
 
-// variable declaration(s)
-extern CRGB leds[LEDS_COUNT];
-extern uint8_t led_inc;
+extern task_t *led_task_ptr;
 
-// function declarations(s)
+/************************************************************************/
+/* FUNCTION DECLARATIONS                                                */
+/************************************************************************/
+
 void leds_init(void);
 void leds_update(void);
 
-
 #endif
+
 

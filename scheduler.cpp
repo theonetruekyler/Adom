@@ -15,6 +15,8 @@ task_t* head = NULL;
 task_t* tail = NULL;
 size_t task_count = 0;
 
+
+
 /************************************************************************/
 /* FUNCTION DEFINITIONS (LOCAL)                                         */
 /************************************************************************/
@@ -61,6 +63,8 @@ void remove_task(task_t *tptr)
 	free((void*)tptr);
 	task_count--;
 }
+
+
 
 /************************************************************************/
 /* FUNCTION DEFINITIONS (GLOBAL)                                        */

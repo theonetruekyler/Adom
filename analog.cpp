@@ -13,20 +13,25 @@
 #define ANALOG_REF EXTERNAL
 #define ANALOG_DEBUG 1
 
-// varaiable definitions
+#ifndef ARRAY_SIZE
+#define ARRAY_SIZE(arr) \
+	()
+#endif
 
-// the order of list initialization must follow the pot_control_t enumeration
+/************************************************************************/
+/* VARIABLE DEFINITIONS (LOCAL)                                         */
+/************************************************************************/
+
+/* the order of list initialization must follow the pot_control_t enumeration */
 analog_t pots[] = {
 	{POT_CONTROL_RGB_SPEED_PIN, 0, 0}
 };
 
-// function definitions
-void analog_init(void)
-{
-	analogReference(ANALOG_REF);
 
-	scheduler_add_task_freq(analog_update, 10);
-}
+
+/************************************************************************/
+/* FUNCTION DEFINITIONS (LOCAL)                                         */
+/************************************************************************/
 
 float analog_ref_enum_to_float(void)
 {
@@ -41,11 +46,24 @@ float analog_ref_enum_to_float(void)
 	}
 }
 
+
+
+/************************************************************************/
+/* FUNCTION DEFINITIONS (GLOBAL)                                        */
+/************************************************************************/
+
+void analog_init(void)
+{
+	analogReference(ANALOG_REF);
+
+	scheduler_add_task_freq(analog_update, 10);
+}
+
 void analog_update(void)
 {
 	analog_t* ap;
 
-	// read potentiometers
+	/* read potentiometers */
 	for (int i = 0; i < ANALOG_POT_COUNT; i++) {
 		ap = pots + i;
 		ap->raw = analogRead(ap->pin);
@@ -55,3 +73,10 @@ void analog_update(void)
 #endif
 	}
 }
+
+int analog_get_raw(pot_control_t ctrl)
+{
+	return pots[ctrl].raw;
+}
+
+

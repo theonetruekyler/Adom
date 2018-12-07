@@ -5,54 +5,53 @@
 #include "display.h"
 #include "scheduler.h"
 
+#include "LedControl.h"
+
 #define DISPLAY_DATA_IN 51
 #define DISPLAY_CLK 52
 #define DISPLAY_CS 53
 
-// "local" variables
+/************************************************************************/
+/* VARIABLE DEFINITIONS (LOCAL)                                         */
+/************************************************************************/
+
 LedControl led_control = LedControl(DISPLAY_DATA_IN, DISPLAY_CLK, DISPLAY_CS, 1);
+
+
+
+/************************************************************************/
+/* FUNCTION DEFINITIONS (GLOBAL)                                        */
+/************************************************************************/
 
 void display_init(void)
 {
-	// wake up
 	led_control.shutdown(0, false);
-
-	// set brightness
 	led_control.setIntensity(0, 8);
-
-
 	led_control.setScanLimit(0, 8);
-
-	// clear display
 	led_control.clearDisplay(0);
 
-	/// TODO: remove
-	for (int i = 0; i < 8; i++) {
-		led_control.setDigit(0, i, 0, 0);
-	}
-
 	scheduler_add_task_freq(display_update, 1);
-
 }
 
 void display_update(void)
 {
-	/// TODO: remove
-	static int display_count_debug = 990;
+	static int display_count_debug = 0;
 	display_count_debug++;
 
 	display_write_int(display_count_debug, 4);
 	display_write_int(display_count_debug, 0);
+
+	/// TODO: remove function and task, or implement scrolling display?
 }
 
 void display_write_int(int value, int x)
 {
+	/* integer out-of-range */
 	if (9999 < value || -999 > value) {
-		// integer too large or too small
 		return;
 	}
 
-	// thousandths, hundredths, tenths, ones
+	/* store each decimal place in an array element */
 	byte digits[4];
 	digits[0] = value % 10;
 	digits[1] = (value / 10) % 10;
@@ -63,6 +62,8 @@ void display_write_int(int value, int x)
 	for (i = 0, j = x; i < 4 && j < 8; i++, j++) {
 		led_control.setDigit(0, j, (byte)digits[i], false);
 	}
+
+	/// TODO: implement '-' character for negative numbers.
 }
 
 
