@@ -4,24 +4,43 @@
 
 #include "leds.h"
 #include "analog.h"
-#include "scheduler.h"
+
+#define FASTLED_INTERNAL
+#include "FastLED.h"
 
 #define LEDS_DATA_PIN 37	/// NOTE: 51 is SPI_MOSI
+#define LEDS_COUNT 12
 
-// global variables
+#define LEDS_STATIC_COEF 0.15f
+
+/************************************************************************/
+/* VARIABLE DEFINITIONS (GLOBAL)                                        */
+/************************************************************************/
+
+task_t *led_task_ptr;
+
+
+
+/************************************************************************/
+/* VARIABLE DEFINITIONS (LOCAL)                                         */
+/************************************************************************/
+
 CRGB leds[LEDS_COUNT];
+uint8_t led_hue;
 uint8_t led_inc;
 
-// local variables
-task_t* led_task_ptr;
-uint8_t led_hue;
+
+
+/************************************************************************/
+/* FUNCTION DEFINITIONS (GLOBAL)                                        */
+/************************************************************************/
 
 void leds_init(void)
 {
 	FastLED.addLeds<NEOPIXEL, LEDS_DATA_PIN>(leds, LEDS_COUNT);
 
-	led_inc = 1;
 	led_hue = 0;
+	led_inc = 1;
 	fill_rainbow(leds, LEDS_COUNT, led_hue);
 	FastLED.show();
 
@@ -30,21 +49,21 @@ void leds_init(void)
 
 void leds_update(void)
 {
-	// copy from analog backend
-	int raw_speed = pots[POT_CONTROL_RGB_SPEED].raw;
+	/* copy from analog 'backend' */
+	int raw_speed = analog_get_raw(POT_CONTROL_RGB_SPEED);
 
-	// logic (speed)
+	/* set speed */
 	if (1023 == raw_speed) {
 		led_inc = 30;
 	}
-	else if (LEDS_ADC_THRESHOLD * 1023 > raw_speed) {
+	else if (LEDS_STATIC_COEF * 1023 > raw_speed) {
 		led_inc = 0;
 	}
 	else {
-		led_inc = map(raw_speed, LEDS_ADC_THRESHOLD * 1023, 1023, 1, 15);
+		led_inc = map(raw_speed, LEDS_STATIC_COEF * 1023, 1023, 1, 15);
 	}
 
-	// update display
+	/* write to LED's */
 	led_hue += led_inc;
 	fill_rainbow(leds, LEDS_COUNT, led_hue);
 	FastLED.show();

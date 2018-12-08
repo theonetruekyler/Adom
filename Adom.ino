@@ -26,8 +26,6 @@ void setup()
 	delay(500);
 	Serial.begin(38400);
 
-	scheduler_init();
-
 	analog_init();
 	leds_init();
 	display_init();
@@ -39,4 +37,4 @@ void loop()
 	scheduler_run();
 }
 
-/// TODO: functions called by the scheduler should accept a pointer to their containing task!
+
