@@ -38,7 +38,6 @@ void display_update(void)
 	static int display_count_debug = 0;
 	display_count_debug++;
 
-	display_write_int(display_count_debug, 4);
 	display_write_int(display_count_debug, 0);
 
 	/// TODO: remove function and task, or implement scrolling display?

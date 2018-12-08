@@ -12,6 +12,8 @@ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\leds.cpp
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\mega/pins_arduino.h \
+ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\scheduler.h \
+ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\analog.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/FastLED.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/cpp_compat.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/FastLED.h \
@@ -49,6 +51,4 @@ C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\leds.cpp
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/power_mgt.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/fastspi.h \
  C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/fastspi_bitbang.h \
- C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/chipsets.h \
- C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\analog.h \
- C:\Users\Kyler\AppData\Local\Temp\VMBuilds\Adom\mega_atmega2560\Release\scheduler.h
+ C:\Users\Kyler\Documents\Arduino\libraries\FastLED-master/chipsets.h

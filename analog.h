@@ -36,6 +36,7 @@ typedef enum
 void analog_init(void);
 void analog_update(void);
 int analog_get_raw(pot_control_t ctrl);
+int analog_get_mv(pot_control_t ctrl);
 
 #endif
 
