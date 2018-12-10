@@ -15,7 +15,7 @@
 /* VARIABLE DECLARATIONS                                                */
 /************************************************************************/
 
-extern task_t *led_task_ptr;
+extern task_t *leds_task_ptr;
 
 /************************************************************************/
 /* FUNCTION DECLARATIONS                                                */

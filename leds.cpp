@@ -17,7 +17,7 @@
 /* VARIABLE DEFINITIONS (GLOBAL)                                        */
 /************************************************************************/
 
-task_t *led_task_ptr;
+task_t *leds_task_ptr;
 
 
 
@@ -44,13 +44,13 @@ void leds_init(void)
 	fill_rainbow(leds, LEDS_COUNT, led_hue);
 	FastLED.show();
 
-	led_task_ptr = scheduler_add_task_freq(leds_update, 30);
+	leds_task_ptr = scheduler_add_task_freq(leds_update, 30);
 }
 
 void leds_update(void)
 {
 	/* copy from analog 'backend' */
-	int raw_speed = analog_get_raw(POT_CONTROL_RGB_SPEED);
+	int raw_speed = analog_get_raw(ANA_CTRL_RGB_SPEED);
 
 	/* set speed */
 	if (1023 == raw_speed) {

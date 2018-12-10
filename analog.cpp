@@ -7,9 +7,9 @@
 #include "serial_printf.h"
 #include "display.h"
 
-#define POT_CONTROL_RGB_SPEED_PIN A0
-//#define POT_CONTROL_RGB_VARIETY_PIN
-//#define POT_CONTROL_RGB_BRIGHTNESS_PIN
+#define ANA_CTRL_RGB_SPEED_PIN A0
+//#define ANA_CTRL_RGB_VARIETY_PIN
+//#define ANA_CTRL_RGB_BRIGHTNESS_PIN
 
 #define ANALOG_REF EXTERNAL
 #define ANALOG_DEBUG 1
@@ -23,9 +23,9 @@
 /* VARIABLE DEFINITIONS (LOCAL)                                         */
 /************************************************************************/
 
-/* the order of list initialization must follow the pot_control_t enumeration */
-analog_t pots[] = {
-	{POT_CONTROL_RGB_SPEED_PIN, 0, 0}
+/* the order of list initialization must follow the analog_control_t enumeration */
+analog_t input[] = {
+	{ANA_CTRL_RGB_SPEED_PIN, 0, 0}
 };
 
 
@@ -64,9 +64,9 @@ void analog_update(void)
 {
 	analog_t* ap;
 
-	/* read potentiometers */
-	for (int i = 0; i < ARRAY_SIZE(pots); i++) {
-		ap = pots + i;
+	/* read analog inputs */
+	for (int i = 0; i < ARRAY_SIZE(input); i++) {
+		ap = input + i;
 		ap->raw = analogRead(ap->pin);
 		ap->mv = map(ap->raw, 0, 1023, 0, (long)(1000 * analog_ref_enum_to_float()));
 #if ANALOG_DEBUG
@@ -74,17 +74,17 @@ void analog_update(void)
 #endif
 	}
 
-	display_write_int(pots[0].raw, 4);
+	display_write_int(input[0].raw, 4);
 }
 
-int analog_get_raw(pot_control_t ctrl)
+int analog_get_raw(analog_control_t ctrl)
 {
-	return pots[ctrl].raw;
+	return input[ctrl].raw;
 }
 
-int analog_get_mv(pot_control_t ctrl)
+int analog_get_mv(analog_control_t ctrl)
 {
-	return pots[ctrl].mv;
+	return input[ctrl].mv;
 }
 
 

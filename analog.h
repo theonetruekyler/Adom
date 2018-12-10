@@ -20,12 +20,13 @@ typedef struct __analog_t
 	int mv;		// scaled voltage (mV)
 } analog_t;
 
+/* user controls */
 typedef enum
 {
-	POT_CONTROL_RGB_SPEED = 0,
-	POT_CONTROL_RGB_VARIETY = 1,
-	POT_CONTROl_RGB_BRIGHTNESS = 2
-} pot_control_t;
+	ANA_CTRL_RGB_SPEED = 0,
+	ANA_CTRL_RGB_VARIETY = 1,
+	ANA_CTRL_RGB_BRIGHTNESS = 2
+} analog_control_t;
 
 
 
@@ -35,8 +36,8 @@ typedef enum
 
 void analog_init(void);
 void analog_update(void);
-int analog_get_raw(pot_control_t ctrl);
-int analog_get_mv(pot_control_t ctrl);
+int analog_get_raw(analog_control_t ctrl);
+int analog_get_mv(analog_control_t ctrl);
 
 #endif
 

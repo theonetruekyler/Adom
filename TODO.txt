@@ -1,4 +1,7 @@
-2) refactor led adjustment to use hue increment rather than task frequency
-	a) implement pause functionality at low voltages
-3) implement digital input (button) abstraction
-4) refactor fptr_t to accept task_t* as a parameter
+- implement pulse-width modululation abstraction (FET)
+- implement external interrupt abstraction (rotary encoder)
+- implement thermocouple abstraction (MAX6675)
+- implmenet skeleton code for PID temperature controller
+- implement abstraction for IC-less 7-segment LED control
+- implement pause and resume task functions in scheduler
+- implement low pass filtering of analog and digital inputs
