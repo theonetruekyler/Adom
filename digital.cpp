@@ -4,4 +4,11 @@
 
 #include "digital.h"
 
-button_status_t button_status;
+/************************************************************************/
+/* FUNCTION DEFINITIONS (GLOBAL)                                        */
+/************************************************************************/
+
+void digital_init(void)
+{
+
+}
