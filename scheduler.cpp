@@ -146,24 +146,22 @@ task_t* scheduler_one_shot(void_fptr_t func, ulong per)
 
 bool scheduler_remove_task(void_fptr_t func)
 {
-	/* no task to remove */
-	if (task_count < 1 || NULL == head) {
+	task_t *tptr = scheduler_get_task(func);
+	if (NULL == tptr) {
 		return false;
 	}
 
-	for (task_t *tptr = head; NULL != tptr; tptr = tptr->next) {
-		if (func == tptr->func ) {
-			tptr->bit.dispose = 1;
-			return true;
-		}
-	}
-
-	return false;
+	return scheduler_remove_task(tptr);
 }
 
 bool scheduler_remove_task(task_t *tptr)
 {
+	if (NULL == tptr) {
+		return false;
+	}
+
 	tptr->bit.dispose = 1;
+
 	return true;
 }
 
