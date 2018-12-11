@@ -167,6 +167,48 @@ bool scheduler_remove_task(task_t *tptr)
 	return true;
 }
 
+bool scheduler_pause_task(void_fptr_t func)
+{
+	task_t *tptr = scheduler_get_task(func);
+	if (NULL == tptr) {
+		return false;
+	}
+
+	return scheduler_pause_task(tptr);
+}
+
+bool scheduler_pause_task(task_t *tptr)
+{
+	if (NULL == tptr) {
+		return false;
+	}
+
+	tptr->bit.pause = 1;
+
+	return true;
+}
+
+bool scheduler_resume_task(void_fptr_t func)
+{
+	task_t *tptr = scheduler_get_task(func);
+	if (NULL == tptr) {
+		return false;
+	}
+
+	return scheduler_resume_task(tptr);
+}
+
+bool scheduler_resume_task(task_t *tptr)
+{
+	if (NULL == tptr) {
+		return false;
+	}
+
+	tptr->bit.pause = 0;
+
+	return true;
+}
+
 task_t* scheduler_get_task(void_fptr_t func)
 {
 	task_t *tptr = NULL;

@@ -8,7 +8,6 @@
 
 // Define User Types below here or use a .h file
 //
-#include "global.h"
 #include "digital.h"
 #include "display.h"
 #include "analog.h"
@@ -36,8 +35,6 @@ void setup()
 // Add the main program code into the continuous loop() function
 void loop()
 {
-	g_flags.actions = 37;
-
 	scheduler_run();
 }
 
