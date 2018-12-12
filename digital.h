@@ -27,7 +27,7 @@ typedef struct __encoder_t
 {
 	digital_t dig_a;
 	digital_t dig_b;
-	uint16_t value;
+	uint8_t old_state;
 } encoder_t;
 
 

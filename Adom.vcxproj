@@ -110,7 +110,6 @@
     <ClInclude Include="analog.h" />
     <ClInclude Include="digital.h" />
     <ClInclude Include="display.h" />
-    <ClInclude Include="global.h" />
     <ClInclude Include="leds.h" />
     <ClInclude Include="serial_printf.h" />
     <ClInclude Include="scheduler.h" />
@@ -120,7 +119,6 @@
     <ClCompile Include="analog.cpp" />
     <ClCompile Include="digital.cpp" />
     <ClCompile Include="display.cpp" />
-    <ClCompile Include="global.cpp" />
     <ClCompile Include="leds.cpp" />
     <ClCompile Include="scheduler.cpp" />
   </ItemGroup>

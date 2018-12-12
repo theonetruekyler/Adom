@@ -24,7 +24,13 @@ volatile encoder_t enc_temp_sel = {
 	0
 };
 
-
+/* row is old state, column new state */
+static const int encoder_lut[4][4] = {
+	{ 0,-1, 1, 0},
+	{ 1, 0, 0,-1},
+	{-1, 0, 0, 1},
+	{ 0, 1,-1, 0}
+};
 
 /************************************************************************/
 /* VARIABLE DEFINITIONS (GLOBAL)                                        */
@@ -33,7 +39,7 @@ volatile encoder_t enc_temp_sel = {
 volatile int digital_temp_sel;
 volatile int digital_temp_set;
 
-
+ 
 
 /************************************************************************/
 /* FUNCTION DEFINITIONS (LOCAL)                                         */
@@ -41,25 +47,25 @@ volatile int digital_temp_set;
 
 int read_button(button_t *btn)
 {
-	return digitalRead(btn->pin);
+	btn->state = (bool)digitalRead(btn->pin);
+	return (int)btn->state;
 }
 
 /* returns either 1 or -1 to indicate clockwise or counter-clockwise direction, respectivevly */
 int read_encoder(encoder_t *enc)
 {
-	if (!(digitalRead(enc->dig_a.pin) ^ digitalRead(enc->dig_b.pin))) {
-		return 1;
-	}
-	else {
-		return -1;
-	}
+	uint8_t new_state = 0;
+	new_state |= digitalRead(enc->dig_a.pin) << 1;
+	new_state |= digitalRead(enc->dig_b.pin);
+
+	int tmp = encoder_lut[enc->old_state][new_state];
+	enc->old_state = new_state;
+	return tmp;
 }
 
 void isr_btn_temp_set(void)
 {
-	if (LOW == read_button((button_t*)&btn_temp_set)) {
-		digital_temp_set = digital_temp_sel;
-	}
+	digital_temp_set = digital_temp_sel;
 }
 
 void isr_enc_temp_sel(void)
@@ -79,9 +85,11 @@ void digital_init(void)
 	digital_temp_set = 0;
 
 	pinMode(DIG_CTRL_BTN_TEMP_SET_PIN, INPUT_PULLUP);
+	read_button((button_t*)&btn_temp_set);
 	attachInterrupt(digitalPinToInterrupt(DIG_CTRL_BTN_TEMP_SET_PIN), isr_btn_temp_set, CHANGE);
 
 	pinMode(DIG_CTRL_ENC_TEMP_SEL_A_PIN, INPUT_PULLUP);
 	pinMode(DIG_CTRL_ENC_TEMP_SEL_B_PIN, INPUT_PULLUP);
+	read_encoder((encoder_t*)&enc_temp_sel);
 	attachInterrupt(digitalPinToInterrupt(DIG_CTRL_ENC_TEMP_SEL_A_PIN), isr_enc_temp_sel, CHANGE);
 }
