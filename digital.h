@@ -25,9 +25,19 @@ typedef digital_t button_t;
 /* rotary encoder */
 typedef struct __encoder_t
 {
-	digital_t dig[2];
-	uint8_t value;
+	digital_t dig_a;
+	digital_t dig_b;
+	uint16_t value;
 } encoder_t;
+
+
+
+/************************************************************************/
+/* VARIABLE DECLARATIONS                                                */
+/************************************************************************/
+
+extern volatile int digital_temp_sel;
+extern volatile int digital_temp_set;
 
 
 

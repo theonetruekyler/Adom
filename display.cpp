@@ -4,6 +4,7 @@
 
 #include "display.h"
 #include "scheduler.h"
+#include "digital.h"
 
 #include "LedControl.h"
 
@@ -30,17 +31,13 @@ void display_init(void)
 	led_control.setScanLimit(0, 8);
 	led_control.clearDisplay(0);
 
-	scheduler_add_task_freq(display_update, 1);
+	scheduler_add_task_freq(display_update, 10);
 }
 
 void display_update(void)
 {
-	static int display_count_debug = 0;
-	display_count_debug++;
-
-	display_write_int(display_count_debug, 0);
-
-	/// TODO: remove function and task, or implement scrolling display?
+	display_write_int(digital_temp_set, 4);
+	display_write_int(digital_temp_sel, 0);
 }
 
 void display_write_int(int value, int x)

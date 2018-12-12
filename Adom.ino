@@ -30,6 +30,7 @@ void setup()
 	analog_init();
 	leds_init();
 	display_init();
+	digital_init();
 }
 
 // Add the main program code into the continuous loop() function

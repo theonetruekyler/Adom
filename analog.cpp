@@ -5,7 +5,6 @@
 #include "analog.h"
 #include "scheduler.h"
 #include "serial_printf.h"
-#include "display.h"
 
 #define ANA_CTRL_RGB_SPEED_PIN A0
 //#define ANA_CTRL_RGB_VARIETY_PIN
@@ -73,8 +72,6 @@ void analog_update(void)
 		serial_printf("pot%i: raw %i, mV %i", i, ap->raw, ap->mv);
 #endif
 	}
-
-	display_write_int(input[0].raw, 4);
 }
 
 int analog_get_raw(analog_control_t ctrl)
