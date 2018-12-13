@@ -5,8 +5,8 @@
 #include "digital.h"
 
 #define DIG_CTRL_BTN_TEMP_SET_PIN 2
-#define DIG_CTRL_ENC_TEMP_SEL_A_PIN 3
-#define DIG_CTRL_ENC_TEMP_SEL_B_PIN 4
+#define DIG_CTRL_ENC_TEMP_SEL_A_PIN 18
+#define DIG_CTRL_ENC_TEMP_SEL_B_PIN 19
 
 #define DIGITAL_DEBUG 0
 
@@ -81,7 +81,7 @@ void isr_enc_temp_sel(void)
 
 void digital_init(void)
 {
-	digital_temp_sel = 666;
+	digital_temp_sel = 350;
 	digital_temp_set = 0;
 
 	pinMode(DIG_CTRL_BTN_TEMP_SET_PIN, INPUT_PULLUP);
@@ -92,4 +92,5 @@ void digital_init(void)
 	pinMode(DIG_CTRL_ENC_TEMP_SEL_B_PIN, INPUT_PULLUP);
 	read_encoder((encoder_t*)&enc_temp_sel);
 	attachInterrupt(digitalPinToInterrupt(DIG_CTRL_ENC_TEMP_SEL_A_PIN), isr_enc_temp_sel, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(DIG_CTRL_ENC_TEMP_SEL_B_PIN), isr_enc_temp_sel, CHANGE);
 }
