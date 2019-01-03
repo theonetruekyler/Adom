@@ -1,7 +1,3 @@
 - implement pulse-width modululation abstraction (FET)
-- implement external interrupt abstraction (rotary encoder)
 - implement thermocouple abstraction (MAX6675)
 - implmenet skeleton code for PID temperature controller
-- implement abstraction for IC-less 7-segment LED control
-- implement pause and resume task functions in scheduler
-- implement low pass filtering of analog and digital inputs
