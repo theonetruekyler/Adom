@@ -18,12 +18,19 @@
 #define TEMP_CTRL_KD 6
 
 /************************************************************************/
-/* VARIABLE DEFINITIONS (LOCAL)                                         */
+/* VARIABLE DEFINITIONS (GLOBAL)                                        */
 /************************************************************************/
 
 double set_point;
-double input;
-double output;
+
+
+
+/************************************************************************/
+/* VARIABLE DEFINITIONS (LOCAL)                                         */
+/************************************************************************/
+
+static double input;
+static double output;
 
 MAX6675 thermocouple(THERMOCOUPLE_CLK_PIN, THERMOCOUPLE_CS_PIN, THERMOCOUPLE_DO_PIN);
 
@@ -50,7 +57,7 @@ void temp_ctrl_init(void)
 	scheduler_add_task_freq(temp_ctrl_update, 2);
 }
 
-void temp_ctrl_init(void)
+void temp_ctrl_update(void)
 {
 	input = thermocouple.readFahrenheit();
 

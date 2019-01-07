@@ -23,7 +23,7 @@
 /************************************************************************/
 
 /* the order of list initialization must follow the analog_control_t enumeration */
-analog_t input[] = {
+static analog_t input[] = {
 	{ANA_CTRL_RGB_SPEED_PIN, 0, 0}
 };
 
